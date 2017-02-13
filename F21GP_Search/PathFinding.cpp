@@ -139,8 +139,8 @@ void PathFinding::pathOpened(int x, int y, float newCost, SearchCell * parent, i
 	}
 
 	SearchCell* newChild = new SearchCell(x, y, parent);
-	if (map[x][y] == 2)
-	{
+	if (map[y][parent->xCoord] == 2 || map[parent->yCoord][x] == 2) {
+		delete newChild;
 		return;
 	}
 	newChild->G = newCost;

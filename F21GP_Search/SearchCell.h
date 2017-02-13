@@ -6,7 +6,6 @@
 //				cells.
 //-----------------------------------------------------------------------------
 #pragma once
-#include <math.h>
 
 #define WORLDSIZE 20
 
@@ -30,8 +29,13 @@ public:
 	{
 		float x = (float)(fabs((float)this->xCoord - nodeEnd->xCoord));
 		float y = (float)(fabs((float)this->yCoord - nodeEnd->yCoord));
-
-		return x + y;
+		// Updated to include Diagonal Shortcut(more computational power)
+		if (x > y) {
+			return (1.414 * y) + (x - y);
+		}
+		else {
+			return (1.414 * x) + (y - x);
+		}
 	}
 	 
 };

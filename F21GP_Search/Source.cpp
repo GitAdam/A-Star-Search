@@ -14,7 +14,7 @@ int sMap[20][20] = {
 	{ 2, 0, 0, 0, 0, 2, 2, 2, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 2 },
 	{ 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2 },
 	{ 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2 },
-	{ 2, 0, 2, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2 },
+	{ 2, 2, 2, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2 },
 	{ 2, 0, 2, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2 },
 	{ 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2 },
 	{ 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2 },
@@ -43,6 +43,7 @@ PathFinding path;
 // Global functions
 //-----------------------------------------------------------------------------
 void render(void);
+void menu(void);
 
 //-----------------------------------------------------------------------------
 // Name: Main
@@ -50,8 +51,8 @@ void render(void);
 //				the destination then prompts exit.
 //-----------------------------------------------------------------------------
 int main() {
+	menu();
 	path.findPath(startPos, finishPos, sMap);
-
 	while (!startPos.operator==(finishPos)) {
 		startPos = path.nextPathPos(startPos);
 		sMap[(int)startPos.y][(int)startPos.x] = 1;
@@ -85,5 +86,41 @@ void render(void) {
 		}
 		std::cout << std::endl;
 	}		
-	std::cout << "X:" << startPos.x << " Y:" << startPos.y << std::endl;
+
+
+
+}
+
+//-----------------------------------------------------------------------------
+// Name: Menu
+// Description: Creates a basic start menu for the user to select the 
+//				end point.
+//-----------------------------------------------------------------------------
+void menu(void) {
+	int val;
+
+	std::cout << "Start A* Search." << std::endl;
+	while (1) {
+		std::cout << "Choose your end position X coordinate (between 1 to 18): " << std::endl;
+		std::cin >> val;
+		finishPos.x = fabs(val);
+		while (!(0 < val && val <= 18)) {
+			std::cout << "Please, try again (between 1 to 18): " << std::endl;
+			std::cin >> val;
+			finishPos.x = fabs(val);
+		}
+		std::cout << "Now the Y coordinate(between 1 to 18): " << std::endl;
+		std::cin >> val;
+		finishPos.y = 19 - fabs(val);
+		while (!(0 < val && val <= 18)) {
+			std::cout << "Please, try again (between 1 to 18): " << std::endl;
+			std::cin >> val;
+			finishPos.y = 19 - fabs(val);
+		}
+		if (!(sMap[(int)finishPos.y][(int)finishPos.x] == 2)) {
+			return;
+		}
+		system("cls");
+		std::cout << "You have picked a wall please pick a new position." << std::endl;
+	}
 }
