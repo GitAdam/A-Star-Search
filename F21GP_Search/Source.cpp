@@ -1,3 +1,10 @@
+//-----------------------------------------------------------------------------
+// Author: Adam Strutt
+// Creation date: 13/02/2017
+// File: Source.cpp
+// Description: Main Loop for A* example
+//-----------------------------------------------------------------------------
+
 int sMap[20][20] = {
 	{ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 },
 	{ 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2 },
@@ -20,29 +27,47 @@ int sMap[20][20] = {
 	{ 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2 },
 	{ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 },
 };
+
 #include <iostream>
 #include "VectorMaths.h"
 #include "PathFinding.h"
 
-void render(void);
-
+//-----------------------------------------------------------------------------
+// Global variables and constants
+//-----------------------------------------------------------------------------
 Vec3 startPos = Vec3(18.0f, 1.0f, 0.0f);
 Vec3 finishPos = Vec3(1.0f, 10.0f, 0.0f);
 PathFinding path;
 
+//-----------------------------------------------------------------------------
+// Global functions
+//-----------------------------------------------------------------------------
+void render(void);
+
+//-----------------------------------------------------------------------------
+// Name: Main
+// Description: Calls the find path function. Loops until character reaches 
+//				the destination then prompts exit.
+//-----------------------------------------------------------------------------
 int main() {
 	path.findPath(startPos, finishPos, sMap);
-	while (1) {
+
+	while (!startPos.operator==(finishPos)) {
 		startPos = path.nextPathPos(startPos);
 		sMap[(int)startPos.y][(int)startPos.x] = 1;
 		render();
 	}
-	std::cout << "\nPress any key to continue...\n";
-	std::cin.get(); // delay closing console to read debugging errors.
 
+	std::cout << "\nPress any key to Exit...\n";
+	std::cin.get(); 
 	return 0;
 }
 
+//-----------------------------------------------------------------------------
+// Name: Render
+// Description: Renders the map and the character’s movements. Refreshes on 
+//				the event of a key being pressed.
+//-----------------------------------------------------------------------------
 void render(void) {
 	std::cin.get(); // delay closing console to read debugging errors.
 	system("cls");

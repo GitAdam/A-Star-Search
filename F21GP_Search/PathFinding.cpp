@@ -1,15 +1,29 @@
+//-----------------------------------------------------------------------------
+// Author: Adam Strutt
+// Creation date: 13/02/2017
+// File: Pathfinding.cpp
+// Description: Provides all the function need for an A* pathfinder.
+//-----------------------------------------------------------------------------
+
 #include "PathFinding.h"
 
+//-----------------------------------------------------------------------------
+// Name: PathFinding
+// Description: Default constructor.
+//-----------------------------------------------------------------------------
 PathFinding::PathFinding()
 {
 	m_intializedStartToGoal = false;
 	m_foundGoal = false;
 }
 
-PathFinding::~PathFinding()
-{
-}
-
+//-----------------------------------------------------------------------------
+// Name: findPath
+// Description: If not already Initialized clears all of the main lists and 
+//				initialize the start and goal position. Once Initialized it 
+//				then calls the “continePath” passing in a pointer to the main 
+//				map array.
+//-----------------------------------------------------------------------------
 void PathFinding::findPath(Vec3 currentPos, Vec3 targartPos, int(*map)[WORLDSIZE])
 {
 	if (!m_intializedStartToGoal) {
@@ -46,6 +60,11 @@ void PathFinding::findPath(Vec3 currentPos, Vec3 targartPos, int(*map)[WORLDSIZE
 	}
 }
 
+//-----------------------------------------------------------------------------
+// Name: nextPathPos
+// Description: Return the coordinates(Vec3) to move to and deletes the last 
+//				position from the “m_pathToGoal”.
+//-----------------------------------------------------------------------------
 Vec3 PathFinding::nextPathPos(Vec3 Obj)
 {
 	if (!m_pathToGoal.empty()) {
@@ -54,9 +73,9 @@ Vec3 PathFinding::nextPathPos(Vec3 Obj)
 		nextPos.x = m_pathToGoal[m_pathToGoal.size() - index]->x;
 		nextPos.y = m_pathToGoal[m_pathToGoal.size() - index]->y;
 
-		Vec3 distance = nextPos.operator-(Obj);// pos;
+		Vec3 distance = nextPos.operator-(Obj);	// Location of GameObj
 		if (index < m_pathToGoal.size()) {
-			if (distance.length() < 1) {//radius) {
+			if (distance.length() < 1.5) {	// Radius of GameObj(1.414 or greater)
 				m_pathToGoal.erase(m_pathToGoal.end() - index);
 			}
 		}
@@ -82,6 +101,11 @@ void PathFinding::clearPathToGoal()
 	m_pathToGoal.clear();
 }
 
+//-----------------------------------------------------------------------------
+// Name: setStartAndGoal
+// Description: Initializes the start and goal cell. Then saves them to 
+//				the “m_openList”.
+//-----------------------------------------------------------------------------
 void PathFinding::setStartAndGoal(SearchCell start, SearchCell goal)
 {
 	m_startCell = new SearchCell(start.xCoord, start.yCoord, NULL);
@@ -94,6 +118,13 @@ void PathFinding::setStartAndGoal(SearchCell start, SearchCell goal)
 	m_openList.push_back(m_startCell);
 }
 
+//-----------------------------------------------------------------------------
+// Name: pathOpened
+// Description: It moves to the next cell(“getNextCell”) and makes that its 
+//				current cell. If that is the goal cell it saves the route and 
+//				returns. If it is not the final cell it scans all the cells 
+//				around it and saves all the new ones to the “m_openList”.
+//-----------------------------------------------------------------------------
 void PathFinding::pathOpened(int x, int y, float newCost, SearchCell * parent, int(*map)[WORLDSIZE])
 {
 	if(map[y][x] == 2)
@@ -131,6 +162,12 @@ void PathFinding::pathOpened(int x, int y, float newCost, SearchCell * parent, i
 	m_openList.push_back(newChild);
 }
 
+//-----------------------------------------------------------------------------
+// Name: getNextCell
+// Description: Loops through the “m_openList” looking for the cell with the 
+//				lowest F value. Creates pointer to that cell, stores it in 
+//				“m_visitedList” and removes it from “m_openList”.
+//-----------------------------------------------------------------------------
 SearchCell * PathFinding::getNextCell()
 {
 	float bestF = 999999.0f;
@@ -151,6 +188,13 @@ SearchCell * PathFinding::getNextCell()
 	return nextCell;
 }
 
+//-----------------------------------------------------------------------------
+// Name: continuePath
+// Description: It moves to the next cell(“getNextCell”) and makes that its 
+//				current cell. If that is the goal cell it saves the route and 
+//				returns. If it is not the final cell it scans all the cells 
+//				around it and saves all the new ones to the “m_openList”.
+//-----------------------------------------------------------------------------
 void PathFinding::continuePath(int (*map)[WORLDSIZE])
 {
 	while (!m_foundGoal) {
@@ -182,7 +226,7 @@ void PathFinding::continuePath(int (*map)[WORLDSIZE])
 
 			// Top-Right cell
 			pathOpened(currentCell->xCoord + 1, currentCell->yCoord + 1, currentCell->G + 1.414f, currentCell, map);
-			// Top-eft cell
+			// Top-Left cell
 			pathOpened(currentCell->xCoord - 1, currentCell->yCoord + 1, currentCell->G + 1.414f, currentCell, map);
 			// Bottom-Right cell
 			pathOpened(currentCell->xCoord + 1, currentCell->yCoord - 1, currentCell->G + 1.414f, currentCell, map);

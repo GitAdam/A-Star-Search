@@ -1,3 +1,10 @@
+//-----------------------------------------------------------------------------
+// Author: Adam Strutt
+// Creation date: 13/02/2017
+// File: SearchCell.h
+// Description: Creates a Struct to so variable can be assigned to individual 
+//				cells.
+//-----------------------------------------------------------------------------
 #pragma once
 #include <math.h>
 
@@ -13,7 +20,7 @@ public:
 	// Heuristic
 	float G;				// Distance from the starting node
 	float H;				// Distance from the end node
-	bool Wall;
+	bool Wall;				// Defines if the cell can be passed through
 
 	SearchCell() : parent(0), Wall(false){}
 	SearchCell(int x, int y, SearchCell *_parent = 0) : xCoord(x), yCoord(y), parent(_parent), id(y * WORLDSIZE + x), G(0), H(0), Wall(false) {};
