@@ -2,8 +2,7 @@
 // Author: Adam Strutt
 // Creation date: 13/02/2017
 // File: SearchCell.h
-// Description: Creates a Struct to so variable can be assigned to individual 
-//				cells.
+// Description: Creates a Struct to so variable can be assigned to individual cells.
 //-----------------------------------------------------------------------------
 #pragma once
 

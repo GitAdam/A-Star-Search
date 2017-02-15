@@ -48,29 +48,40 @@ void menu(void);
 //-----------------------------------------------------------------------------
 // Name: Main
 // Description: Calls the find path function. Loops until character reaches 
-//				the destination then prompts exit.
+// the destination then prompts exit.
 //-----------------------------------------------------------------------------
 int main() {
-	menu();
-	path.findPath(startPos, finishPos, sMap);
-	while (!startPos.operator==(finishPos)) {
-		startPos = path.nextPathPos(startPos);
-		sMap[(int)startPos.y][(int)startPos.x] = 1;
-		render();
-	}
+	while (1) {
+		path.clearOpenList();
+		path.clearVisitedList();
+		path.clearPathToGoal();
+		menu();
+		path.findPath(startPos, finishPos, sMap);
+		while (!startPos.operator==(finishPos)) {
+			startPos = path.nextPathPos(startPos);
+			sMap[(int)startPos.y][(int)startPos.x] = 1;
+			render();
+		}
 
-	std::cout << "\nPress any key to Exit...\n";
-	std::cin.get(); 
-	return 0;
+		char val = 'O';
+		while (val != 'E') {
+			std::cout << "Enter E then press Enter to Exit...\n";
+			std::cin >> val;
+			if (val == 'E') {
+				return 0;
+			}
+			system("cls");
+		}
+	}
 }
 
 //-----------------------------------------------------------------------------
 // Name: Render
 // Description: Renders the map and the character’s movements. Refreshes on 
-//				the event of a key being pressed.
+// the event of a key being pressed.
 //-----------------------------------------------------------------------------
 void render(void) {
-	std::cin.get(); // delay closing console to read debugging errors.
+	std::cin.get();
 	system("cls");
 	for (int x = 0; x < 20; x++) {
 		for (int y = 0; y < 20; y++) {

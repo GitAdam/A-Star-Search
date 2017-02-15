@@ -20,9 +20,8 @@ PathFinding::PathFinding()
 //-----------------------------------------------------------------------------
 // Name: findPath
 // Description: If not already Initialized clears all of the main lists and 
-//				initialize the start and goal position. Once Initialized it 
-//				then calls the “continePath” passing in a pointer to the main 
-//				map array.
+// initialize the start and goal position. Once Initialized it then calls the 
+// “continePath” passing in a pointer to the main map array.
 //-----------------------------------------------------------------------------
 void PathFinding::findPath(Vec3 currentPos, Vec3 targartPos, int(*map)[WORLDSIZE])
 {
@@ -63,7 +62,7 @@ void PathFinding::findPath(Vec3 currentPos, Vec3 targartPos, int(*map)[WORLDSIZE
 //-----------------------------------------------------------------------------
 // Name: nextPathPos
 // Description: Return the coordinates(Vec3) to move to and deletes the last 
-//				position from the “m_pathToGoal”.
+// position from the “m_pathToGoal”.
 //-----------------------------------------------------------------------------
 Vec3 PathFinding::nextPathPos(Vec3 Obj)
 {
@@ -104,7 +103,7 @@ void PathFinding::clearPathToGoal()
 //-----------------------------------------------------------------------------
 // Name: setStartAndGoal
 // Description: Initializes the start and goal cell. Then saves them to 
-//				the “m_openList”.
+// the “m_openList”.
 //-----------------------------------------------------------------------------
 void PathFinding::setStartAndGoal(SearchCell start, SearchCell goal)
 {
@@ -121,9 +120,9 @@ void PathFinding::setStartAndGoal(SearchCell start, SearchCell goal)
 //-----------------------------------------------------------------------------
 // Name: pathOpened
 // Description: It moves to the next cell(“getNextCell”) and makes that its 
-//				current cell. If that is the goal cell it saves the route and 
-//				returns. If it is not the final cell it scans all the cells 
-//				around it and saves all the new ones to the “m_openList”.
+// current cell. If that is the goal cell it saves the route and returns. If 
+// it is not the final cell it scans all the cells around it and saves all 
+// the new ones to the “m_openList”.
 //-----------------------------------------------------------------------------
 void PathFinding::pathOpened(int x, int y, float newCost, SearchCell * parent, int(*map)[WORLDSIZE])
 {
@@ -165,8 +164,8 @@ void PathFinding::pathOpened(int x, int y, float newCost, SearchCell * parent, i
 //-----------------------------------------------------------------------------
 // Name: getNextCell
 // Description: Loops through the “m_openList” looking for the cell with the 
-//				lowest F value. Creates pointer to that cell, stores it in 
-//				“m_visitedList” and removes it from “m_openList”.
+// lowest F value. Creates pointer to that cell, stores it in “m_visitedList” 
+// and removes it from “m_openList”.
 //-----------------------------------------------------------------------------
 SearchCell * PathFinding::getNextCell()
 {
@@ -191,9 +190,9 @@ SearchCell * PathFinding::getNextCell()
 //-----------------------------------------------------------------------------
 // Name: continuePath
 // Description: It moves to the next cell(“getNextCell”) and makes that its 
-//				current cell. If that is the goal cell it saves the route and 
-//				returns. If it is not the final cell it scans all the cells 
-//				around it and saves all the new ones to the “m_openList”.
+// current cell. If that is the goal cell it saves the route and  returns. If
+// it is not the final cell it scans all the cells around it and saves all 
+// the new ones to the “m_openList”.
 //-----------------------------------------------------------------------------
 void PathFinding::continuePath(int (*map)[WORLDSIZE])
 {
@@ -238,6 +237,19 @@ void PathFinding::continuePath(int (*map)[WORLDSIZE])
 					m_openList.erase(m_openList.begin() + i);
 				}
 			}
+			/*
+			std::cout << "m_openList" << std::endl;
+			for (unsigned int i = 0; i < m_openList.size(); i++) {
+					std::cout << "X:" << m_openList[i]->xCoord << " Y:" << m_openList[i]->yCoord << " F:" << m_openList[i]->getF() << " G:" << m_openList[i]->G  << " H:" << m_openList[i]->H << std::endl;
+
+			}
+			std::cout << "m_visitedList" << std::endl;
+			for (unsigned int i = 0; i < m_visitedList.size(); i++) {
+					std::cout << "X:" << m_visitedList[i]->xCoord << " Y:" << m_visitedList[i]->yCoord << " F:" << m_visitedList[i]->getF() << " G:" << m_visitedList[i]->G << " H:" << m_visitedList[i]->H << std::endl;
+					
+			}
+			std::cin.get();
+			*/
 		}
 	}
 }
