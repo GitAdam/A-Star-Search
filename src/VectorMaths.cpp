@@ -1,6 +1,6 @@
 // Vector Class
 #include "VectorMaths.h"
-
+#include <math.h>
 #include <iostream>
 
 // Constructor

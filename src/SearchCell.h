@@ -5,7 +5,7 @@
 // Description: Creates a Struct to so variable can be assigned to individual cells.
 //-----------------------------------------------------------------------------
 #pragma once
-
+#include <math.h>
 #define WORLDSIZE 20
 
 struct SearchCell

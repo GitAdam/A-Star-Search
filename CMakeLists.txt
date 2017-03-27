@@ -5,11 +5,11 @@ project(fgp21_search)
 if (WIN32) # true if windows (32 and 64 bit)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++0x")
 else ()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 endif ()
 
 
-set(SOURCE_FILES source.cpp)
+set(SOURCE_FILES Source.cpp)
 
 add_executable(fgp21_search_run ${SOURCE_FILES})
 
