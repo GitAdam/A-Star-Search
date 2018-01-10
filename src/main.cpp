@@ -29,8 +29,9 @@ int sMap[20][20] = {
 };
 
 #include <iostream>
-#include "VectorMaths.h"
-#include "PathFinding.h"
+#include <stdlib.h>
+#include "vector-maths.h"
+#include "path-finding.h"
 
 //-----------------------------------------------------------------------------
 // Global variables and constants
@@ -70,7 +71,7 @@ int main() {
 			if (val == 'E') {
 				return 0;
 			}
-			system("cls");
+			system("clear");
 		}
 	}
 }
@@ -82,7 +83,7 @@ int main() {
 //-----------------------------------------------------------------------------
 void render(void) {
 	std::cin.get();
-	system("cls");
+	system("clear");
 	for (int x = 0; x < 20; x++) {
 		for (int y = 0; y < 20; y++) {
 			if (sMap[x][y] == 0) {
@@ -131,7 +132,7 @@ void menu(void) {
 		if (!(sMap[(int)finishPos.y][(int)finishPos.x] == 2)) {
 			return;
 		}
-		system("cls");
+		system("clear");
 		std::cout << "You have picked a wall please pick a new position." << std::endl;
 	}
 }

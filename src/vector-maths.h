@@ -1,5 +1,5 @@
-// Vector library
-#pragma once
+#ifndef VECTOR_CLASS_H
+#define VECTOR_CLASS_H
 
 class Vec3 {
 public:
@@ -31,3 +31,5 @@ public:
 protected:
 private:
 };
+
+#endif

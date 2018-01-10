@@ -4,7 +4,6 @@
 // File: SearchCell.h
 // Description: Creates a Struct to so variable can be assigned to individual cells.
 //-----------------------------------------------------------------------------
-#pragma once
 #include <math.h>
 #define WORLDSIZE 20
 
@@ -21,7 +20,12 @@ public:
 	bool Wall;				// Defines if the cell can be passed through
 
 	SearchCell() : parent(0), Wall(false){}
-	SearchCell(int x, int y, SearchCell *_parent = 0) : xCoord(x), yCoord(y), parent(_parent), id(y * WORLDSIZE + x), G(0), H(0), Wall(false) {};
+	SearchCell(int x, int y, SearchCell *_parent = 0) : xCoord(x),
+		yCoord(y),
+		parent(_parent),
+		id(y * WORLDSIZE + x),
+		G(0), H(0),
+		Wall(false) {};
 
 	float getF() { return G + H; }
 	float manHattanDistance(SearchCell *nodeEnd)

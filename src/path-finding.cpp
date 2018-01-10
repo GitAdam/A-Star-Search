@@ -5,7 +5,7 @@
 // Description: Provides all the function need for an A* pathfinder.
 //-----------------------------------------------------------------------------
 
-#include "PathFinding.h"
+#include "path-finding.h"
 
 //-----------------------------------------------------------------------------
 // Name: PathFinding

@@ -4,12 +4,11 @@
 // File: Pathfinding.h
 // Description: Provides all the function need for an A* pathfinder.
 //-----------------------------------------------------------------------------
-#pragma once
 #include <iostream>
 #include <vector>
 
-#include "SearchCell.h"
-#include "VectorMaths.h"
+#include "search-cell.h"
+#include "vector-maths.h"
 
 class PathFinding {
 public:
