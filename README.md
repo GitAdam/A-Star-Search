@@ -1,5 +1,5 @@
 # A Star Search
-[![Build Status](https://travis-ci.org/GitAdam/F21GP_Search.svg?branch=master)](https://travis-ci.org/GitAdam/F21GP_Search)
+[![Build Status](https://travis-ci.org/GitAdam/A-Star-Search.svg?branch=master)](https://travis-ci.org/GitAdam/A-Star-Search)
 
 The aim of the project is to create an A* Search.
 
